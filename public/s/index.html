@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>課堂簽到 Check-in</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  body { min-height: 100vh; display: flex; justify-content: center; padding: 16px; }
+  .wrap { width: 100%; max-width: 440px; }
+  h1 { font-size: 1.35rem; margin: .2em 0 0; }
+  .sub { color: var(--muted); margin-bottom: 1rem; }
+  form { display: grid; gap: 1rem; }
+  input { font-size: 1.05rem; padding: .7em .8em !important; }
+  .timer { font-size: .9rem; color: var(--muted); text-align: right; }
+  .timer b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .err { background: var(--absent-bg); color: var(--absent); padding: .75em 1em; border-radius: var(--radius-sm); font-weight: 600; }
+  .done { text-align: center; padding: 2rem 1rem; border-radius: var(--radius); }
+  .done .mark { font-size: 4rem; line-height: 1; }
+  .done h2 { margin: .4em 0 .2em; }
+  .done .time { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  .note { font-size: .85rem; color: var(--muted); margin-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="loading" class="card">載入中… Loading…</div>
+
+  <div id="fatal" class="card hidden">
+    <div class="err" id="fatalMsg"></div>
+    <p class="note">請重新掃描投影幕上的 QR Code。<br>Please scan the QR code on the screen again.</p>
+  </div>
+
+  <div id="formBox" class="card hidden">
+    <h1 id="course"></h1>
+    <div class="sub" id="label"></div>
+    <form id="f" autocomplete="on">
+      <label class="field"><span>學號 <span class="en">Student ID</span></span>
+        <input name="student_no" required inputmode="text" autocapitalize="characters" autocomplete="off">
+      </label>
+      <label class="field"><span>姓名 <span class="en">Name</span></span>
+        <input name="name" required autocomplete="name">
+      </label>
+      <label class="field"><span>系級 <span class="en">Department &amp; Year</span></span>
+        <input name="dept" required placeholder="例：資管二">
+      </label>
+      <div class="err hidden" id="err"></div>
+      <button class="btn primary big" id="submit">送出簽到 Submit</button>
+      <div class="timer">剩餘填寫時間 Time left：<b id="left">--</b></div>
+    </form>
+  </div>
+
+  <div id="doneBox" class="hidden">
+    <div class="done st-present">
+      <div class="mark">✓</div>
+      <h2>簽到成功 <span class="en" style="color:inherit">Checked in</span></h2>
+      <div id="doneName" style="font-size:1.2rem;font-weight:700"></div>
+      <div class="time" id="doneTime"></div>
+    </div>
+    <p class="note">若老師需要確認，請出示此畫面。<br>Show this screen to the instructor if asked.</p>
+    <p class="note"><a href="/me/">查詢我的出席紀錄 My attendance →</a></p>
+  </div>
+</div>
+
+<script src="/s/app.js"></script>
+</body>
+</html>

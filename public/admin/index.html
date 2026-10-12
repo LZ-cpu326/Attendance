@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>課堂點名系統</title>
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+<header class="topbar">
+  <a href="#/" class="brand">課堂點名 <span class="en">Attendance</span></a>
+  <nav id="crumb"></nav>
+  <span class="spacer"></span>
+  <button class="btn sm" id="logs" hidden>登入紀錄</button>
+  <button class="btn sm" id="chpw" hidden>密碼設定</button>
+  <button class="btn sm" id="logout" hidden>登出</button>
+</header>
+<main id="app"></main>
+<div id="toast"></div>
+<div id="modal" class="modal hidden"><div class="modal-box card" id="modalBox"></div></div>
+<script src="/vendor/qrcode.js"></script>
+<script src="/admin/app.js"></script>
+</body>
+</html>

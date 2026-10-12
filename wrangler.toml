@@ -1,0 +1,28 @@
+name = "attendance"
+main = "src/worker.js"
+compatibility_date = "2025-09-01"
+
+[assets]
+directory = "./public"
+run_worker_first = ["/api/*"]
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "attendance"
+# 不填 database_id：第一次部署時 Wrangler 會自動在你的帳號建立 D1 資料庫
+
+# 公開 API 頻率限制（每個 IP；整班共用校園網路 IP，所以上限放寬）
+[[ratelimits]]
+name = "RL_PUBLIC"
+namespace_id = "1001"
+simple = { limit = 300, period = 60 }
+
+[[ratelimits]]
+name = "RL_LOOKUP"
+namespace_id = "1002"
+simple = { limit = 120, period = 60 }
+
+# 每天台灣時間 03:00 刪除過期課程（建立後 12 個月，且最後一次點名後滿 2 個月）與一年前的登入紀錄
+[triggers]
+crons = ["0 19 * * *"]
